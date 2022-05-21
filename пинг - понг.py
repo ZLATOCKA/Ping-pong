@@ -4,6 +4,7 @@ from random import *
 window = display.set_mode((700, 500))
 display.set_caption("ping-pong")
 background = transform.scale(image.load("фон.jpg"), (700, 500))
+
 class GameSprite(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, player_speed, player_w, player_h):
         super().__init__()
@@ -40,21 +41,49 @@ class Enemy(GameSprite):
             self.rect.x = randint(0,635)
             self.rect.y = 0
 
-
+speed_x = 3
+speed_y = 3
 
 cool = True
 finish = False 
 FPS = 60
 clock = time.Clock()
-dracon1 = Player("спрайт.png", 3, 250, 5, 180, 200)
-dracon2 = Player("спрайт 2.png", 530, 250, 5, 180, 200)
+
+paiper = Player("damocka.jpg", 3, 250, 5, 80, 200)
+emz = Player("спрайт 2.png", 620, 250, 5, 80, 200)
+ball = GameSprite("ball.png", 450, 345, 0, 50, 50)
+
+font.init()
+font1 = font.SysFont("verdana", 45)
+
 while cool:
     if finish != True:
         window.blit(background, (0,0))
-        dracon1.reset()
-        dracon1.update_l()
-        dracon2.reset()
-        dracon2.update_r()
+        paiper.reset()
+        paiper.update_l()
+        emz.reset()
+        emz.update_r()
+        ball.reset()
+
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
+
+        if sprite.collide_rect(paiper, ball) or sprite.collide_rect(emz, ball):
+            speed_x*=-1
+
+        if ball.rect.y < 0 or ball.rect.y > 450:
+            speed_y *=-1
+        
+        if ball.rect.x < 0:
+            #проиграл игрок слево
+            lose1 = font1.render("Проиграл игрок слево", True, (255,0,0))
+            window.blit(lose1, (125, 225))
+            finish = True
+        if ball.rect.x > 655:
+            #проиграл игрок справа
+            lose2 = font1.render("Проиграл игрок справа", True, (255,0,0))
+            window.blit(lose2, (125, 255))
+            finish = True
     
     for e in event.get():
         if e.type == QUIT:
