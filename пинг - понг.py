@@ -49,9 +49,9 @@ finish = False
 FPS = 60
 clock = time.Clock()
 
-paiper = Player("damocka.jpg", 3, 250, 5, 80, 200)
-emz = Player("спрайт 2.png", 620, 250, 5, 80, 200)
-ball = GameSprite("ball.png", 450, 345, 0, 50, 50)
+paiper = Player("damocka.png", 3, 100, 5, 80, 200)
+emz = Player("спрайт_2.png", 620, 100, 5, 80, 200)
+ball = GameSprite("ball.png", 320, 245, 0, 50, 50)
 
 font.init()
 font1 = font.SysFont("verdana", 45)
@@ -76,13 +76,13 @@ while cool:
         
         if ball.rect.x < 0:
             #проиграл игрок слево
-            lose1 = font1.render("Проиграл игрок слево", True, (255,0,0))
-            window.blit(lose1, (125, 225))
+            lose1 = font1.render("ПРОИГРАЛА ШЕЛЛИ", True, (182, 43, 121))
+            window.blit(lose1, (125, 150))
             finish = True
         if ball.rect.x > 655:
             #проиграл игрок справа
-            lose2 = font1.render("Проиграл игрок справа", True, (255,0,0))
-            window.blit(lose2, (125, 255))
+            lose2 = font1.render("ПРОИГРАЛА ЭМЗ", True, (182, 43, 121))
+            window.blit(lose2, (150, 150))
             finish = True
     
     for e in event.get():
